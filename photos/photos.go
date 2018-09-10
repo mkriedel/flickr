@@ -4,6 +4,15 @@ import (
 	"gopkg.in/masci/flickr.v2"
 )
 
+type Tag struct {
+	Id string `xml:"id,attr"`
+	Author string `xml:"author,attr"`
+	AuthorName string `xml:"authorname,attr"`
+	Raw string `xml:"raw,attr"`
+	MachineTag bool `xml:"machine_tag,attr"`
+	Tag string `xml:"tag"`
+}
+
 type PhotoInfo struct {
 	Id             string `xml:"id,attr"`
 	Secret         string `xml:"secret,attr"`
@@ -53,6 +62,7 @@ type PhotoInfo struct {
 		CanShare    string `xml:"canshare,attr"`
 	} `xml:"usage"`
 	Comments int `xml:"comments"`
+	Tags []Tag `xml:"tags"`
 	// Notes XXX: not handled yet
 	// People XXX: not handled yet
 	// Tags XXX: not handled yet
