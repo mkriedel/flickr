@@ -5,25 +5,30 @@ import (
 )
 
 type Tag struct {
-	Id string `xml:"id,attr"`
-	Author string `xml:"author,attr"`
+	Id         string `xml:"id,attr"`
+	Author     string `xml:"author,attr"`
 	AuthorName string `xml:"authorname,attr"`
-	Raw string `xml:"raw,attr"`
-	MachineTag bool `xml:"machine_tag,attr"`
-	Tag string `xml:"tag"`
+	Raw        string `xml:"raw,attr"`
+	MachineTag bool   `xml:"machine_tag,attr"`
+	Tag        string `xml:",chardata"`
+}
+
+type URL struct {
+	Type string `xml:"type,attr"`
+	URL  string `xml:",chardata"`
 }
 
 type PhotoInfo struct {
-	Id             string `xml:"id,attr"`
-	Secret         string `xml:"secret,attr"`
-	Server         string `xml:"server,attr"`
-	Farm           string `xml:"farm,attr"`
-	DateUploaded   string `xml:"dateuploaded,attr"`
-	IsFavorite     bool   `xml:"isfavorite,attr"`
-	License        string `xml:"license,attr"`
+	Id           string `xml:"id,attr"`
+	Secret       string `xml:"secret,attr"`
+	Server       string `xml:"server,attr"`
+	Farm         string `xml:"farm,attr"`
+	DateUploaded string `xml:"dateuploaded,attr"`
+	IsFavorite   bool   `xml:"isfavorite,attr"`
+	License      string `xml:"license,attr"`
 	// NOTE: one less than safety level set on upload (ie, here 0 = safe, 1 = moderate, 2 = restricted)
 	//       while on upload, 1 = safe, 2 = moderate, 3 = restricted
-	SafetyLevel    int    `xml:"safety_level,attr"` 
+	SafetyLevel    int    `xml:"safety_level,attr"`
 	Rotation       int    `xml:"rotation,attr"`
 	OriginalSecret string `xml:"originalsecret,attr"`
 	OriginalFormat string `xml:"originalformat,attr"`
@@ -61,12 +66,11 @@ type PhotoInfo struct {
 		CanPrint    string `xml:"canprint,attr"`
 		CanShare    string `xml:"canshare,attr"`
 	} `xml:"usage"`
-	Comments int `xml:"comments"`
-	Tags []Tag `xml:"tags"`
+	Comments int   `xml:"comments"`
+	Tags     []Tag `xml:"tags>tag"`
+	URLs     []URL `xml:"urls>url"`
 	// Notes XXX: not handled yet
 	// People XXX: not handled yet
-	// Tags XXX: not handled yet
-	// Urls XXX: not handled yet
 }
 
 type PhotoInfoResponse struct {
